@@ -1,18 +1,18 @@
 # Lota+
 
 <div align="center">
-  <img src="https://github.com/netox64/b_divulgapotiguar/blob/main/docs/api_print1.png" width="250" height="250" />
-  <img src="https://github.com/netox64/b_divulgapotiguar/blob/main/docs/api_print2.png" width="250" height="250" />
+  <img src="https://github.com/netox64/lotacao/blob/main/docs/api.png" width="250" height="250" />
+  <img src="https://github.com/netox64/lotacao/blob/main/docs/api2.png" width="250" height="250" />
 </div>
 
-<h4 align="center">Este é um projeto com intuito de facilitar a busca de otações para outras cidades, ele tem o intuito de promover, divulgar e organizar caravanas , serve tambem em parte como rede social.</h4>
+<h4 align="center">Este é um projeto com intuito de facilitar a busca de lotações para outras cidades, ele tem o intuito de promover, divulgar e organizar caravanas , serve tambem em parte como rede social.</h4>
 <p align="center">
     <a href="#Tecnologias_Usadas">Tecnologias usadas</a> •
     <a href="#Api_resources">Recursos da Api</a> •
     <a href="#Arquitetura_de_pastas">Estrutura de pasta do backEnd</a> •
     <a href="#Rodando_plicação">Rodar aplicação</a> •
     <a href="#About_the_Author">Sobre o autor</a> •
-    <a href="https://github.com/netox64/b_divulgapotiguar/blob/main/LICENSE">Licença</a>
+    <a href="https://github.com/netox64/lotacao/blob/main/LICENSE">Licença</a>
 </p>
 
 ## Tecnologias_Usadas
@@ -43,7 +43,7 @@ api.src
 
 ## Modelo_do_banco
 
-<img src="https://github.com/netox64/b_divulgapotiguar/blob/main/docs/api_potiguar.png" />
+<img src="https://github.com/netox64/lotacao/blob/main/docs/conceitual.png" />
 
 
 ## Prerequisitos
