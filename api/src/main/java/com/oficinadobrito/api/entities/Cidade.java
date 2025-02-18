@@ -1,5 +1,6 @@
 package com.oficinadobrito.api.entities;
 
+import com.oficinadobrito.api.utils.dtos.cidade.CreateCidadeDto;
 import com.oficinadobrito.api.utils.enums.Estado;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -32,5 +33,18 @@ public class Cidade {
     public Cidade(){
         this.caravanas = new HashSet<>();
     }
-
+    
+    public static Cidade createEntityToDto(CreateCidadeDto dto){
+      Cidade cidade = new Cidade();
+      cidade.setNome(dto.nome());
+      cidade.setEstado(dto.estado());
+      cidade.setLatitude(dto.latitude());
+      cidade.setLongitude(dto.longitude());
+      
+      return cidade;
+    }
+    
+    public void addCaravana(Caravana caravana){
+      this.caravanas.add(caravana);
+    }
 }

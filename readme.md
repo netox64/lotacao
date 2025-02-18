@@ -5,7 +5,7 @@
   <img src="https://github.com/netox64/lotacao/blob/main/docs/api2.png" width="250" height="250" />
 </div>
 
-<h4 align="center">Este é um projeto com intuito de facilitar a busca de lotações para outras cidades, ele tem o intuito de promover, divulgar e organizar caravanas , serve tambem em parte como rede social.</h4>
+<h4 align="center">Este é um projeto serve apenas para treinamento de stratégia de herança no mapeamento de entidades no banco de dados, fora isso pode ser que ele adquira  a capacidade de facilitar a busca de lotações para outras cidades, ele tem o proposito de promover, divulgar e organizar caravanas , serve tambḿm em parte como rede social.</h4>
 <p align="center">
     <a href="#Tecnologias_Usadas">Tecnologias usadas</a> •
     <a href="#Api_resources">Recursos da Api</a> •
@@ -53,9 +53,9 @@ api.src
 - Docker and Docke-compose plugin
 
 ## Rodando_plicação
-- create a file called application-dev.properties inside the resources folder
-- define a jwt with base 64 characters, and your zoho email and password. And finally a secret
-- You can use this example if you want, just need your Zoho email and password.
+- crie um arquivo chamado application-dev.properties dentro da pasta de recursos
+- defina um jwt com base de 64 caracteres, e seu e-mail e senha zoho. E finalmente um segredo
+- Você pode usar este exemplo se quiser, só precisa do seu e-mail e senha do Zoho.
 
 ```
   jwt=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -69,25 +69,25 @@ api.src
   certificate=./certs/suachavep12
 ```
 
-- create the bank:
+- crie o banco::
  ```
     cd api && docker compose up
  ```
 
-- install dependencies:
+- instalar dependências:
  ```
     mvn install 
 
  ```
 
-- to execute:
+- para executar:
 ```
   java -jar target/nome_projeto-1.0-SNAPSHOT.jar 
   or
   mvn spring-boot:run
   
 ```
-- simplify:
+- simplificando:
 ```
   docker-compose up -d && mvn spring-boot:run #or
   docker-compose start -d && mvn spring-boot:run
@@ -95,17 +95,12 @@ api.src
 
 - http://localhost:8080/swagger-ui/index.html?urls.primaryName=public
 
-## Test the application using postman
-
-- open your postman desktop
-- click import
-- import from json Bruno endpoints folder
 
 > [!IMPORTANT]
-> When opening the endpoints, check the "base_url" addressing variable if it is correct.
+> Não há nada importante.
 
 > [!WARNING]
-> When making requests, pay attention to the tokens and the app's authorization policies. Errors may also be found as it is still under development
+> Ao fazer solicitações, preste atenção aos tokens e às políticas de autorização do app. Erros também podem ser encontrados, pois ainda está em desenvolvimento
 
 
 ## About_the_Author
