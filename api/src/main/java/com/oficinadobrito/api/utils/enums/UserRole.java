@@ -3,16 +3,17 @@ package com.oficinadobrito.api.utils.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum UserRole {
-    ADMIN, USER, VENDEDOR, GERENTE;
+  PARTICIPANTE,ADMIN, MOTORISTA, ORGANIZADOR;
 
     @JsonCreator
     public static UserRole fromString(String value) {
         if (value != null) {
             return switch (value.toUpperCase()) {
+                case "PARTICIPANTE" -> PARTICIPANTE;
                 case "ADMIN" -> ADMIN;
-                case "USER" -> USER;
-                case "VENDEDOR" -> VENDEDOR;
-                case "GERENTE" -> GERENTE;
+                case "MOTORISTA" -> MOTORISTA;
+                case "ORGANIZADOR" -> ORGANIZADOR;
+                
                 default -> throw new IllegalArgumentException("Unknown role: " + value);
             };
         }

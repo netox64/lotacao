@@ -1,5 +1,6 @@
 package com.oficinadobrito.api.entities;
 
+import com.oficinadobrito.api.utils.dtos.postagem.CreatePostagemDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,5 +37,13 @@ public class Postagem {
         this.comentarios = new HashSet<>();
     }
 
-
+    public static Postagem createEntityToDto(CreatePostagemDto dto){
+      Postagem postagem = new Postagem();
+      postagem.setConteudo(dto.conteudo());
+      postagem.setDataPostagem(LocalDate.now());
+      return postagem;
+    }
+    public void addComentario(Comentario comentario){
+      this.comentarios.add(comentario);
+    }
 }

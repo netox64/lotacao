@@ -3,6 +3,7 @@ package com.oficinadobrito.api.services.generics;
 import com.oficinadobrito.api.configs.exeptions.ResourceNotFoundException;
 import com.oficinadobrito.api.repositories.generics.GenericRepository;
 import com.oficinadobrito.api.services.interfaces.GenericService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 
@@ -14,7 +15,8 @@ public abstract class GenericServiceImpl<T> implements GenericService<T, BigInte
     public GenericServiceImpl( GenericRepository<T> repository){
       this.repository = repository;
     }
-
+  
+    @Transactional
     @Override
     public T save(T resource) {
         return this.repository.save(resource);
@@ -30,6 +32,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T, BigInte
       return this.repository.findAll();
     }
 
+    @Transactional
     @Override
     public void delete(BigInteger id) {
         this.repository.findById(id).orElseThrow(()-> new ResourceNotFoundException(MESSAGE));

@@ -12,9 +12,11 @@ import jakarta.validation.constraints.Size;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record UpdateOnibusDto(
-    @Size(max = 255, message = "The information can have a maximum of 255 characters.") String info,
+    @Size(max = 255, message = "The information can have a maximum of 255 characters.") 
+    String info,
 
-    @Pattern(regexp = "^[A-Z]{3}\\d{4}$", message = "The license plate must follow the format ABC1234.") String placa,
+    @Pattern(regexp = "^[A-Z]{3}\\d{4}$", message = "The license plate must follow the format ABC1234.") 
+    String placa,
 
     StatusOnibus status,
 
