@@ -1,5 +1,6 @@
 package com.oficinadobrito.api.entities;
 
+import com.oficinadobrito.api.utils.dtos.onibus.CreateOnibusDto;
 import com.oficinadobrito.api.utils.enums.StatusOnibus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,5 +29,15 @@ public class Onibus {
     public  Onibus(){
         this.caravanas = new HashSet<>();
     }
-
+    
+    public static  Onibus createEntityToDto(CreateOnibusDto onibusDto){
+      Onibus onibus = new Onibus();
+      onibus.setInfo(onibusDto.info());
+      onibus.setPlaca(onibusDto.placa());
+      onibus.setStatus(onibusDto.status());
+      return onibus;
+    }
+    public void addCaravana(Caravana caravana){
+      this.caravanas.add(caravana);
+    }
 }

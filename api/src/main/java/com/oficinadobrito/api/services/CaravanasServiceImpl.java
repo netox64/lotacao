@@ -5,6 +5,8 @@ import com.oficinadobrito.api.entities.Cidade;
 import com.oficinadobrito.api.entities.Motorista;
 import com.oficinadobrito.api.repositories.generics.GenericRepository;
 import com.oficinadobrito.api.services.generics.GenericServiceImpl;
+import com.oficinadobrito.api.services.tiposdeusuarios.MotoristasServiceImpl;
+import com.oficinadobrito.api.services.tiposdeusuarios.OrganizadoresServiceImpl;
 import com.oficinadobrito.api.utils.dtos.caravana.UpdateCaravanaDto;
 import com.oficinadobrito.api.utils.dtos.cidade.UpdateCidadeDto;
 import org.springframework.stereotype.Service;
@@ -16,10 +18,10 @@ import java.util.stream.Collectors;
 public class CaravanasServiceImpl extends GenericServiceImpl<Caravana> {
   
   private final CidadesServiceImpl cidadesService;
-  private  final OrganizadorServiceImpl organizadorService;
-  private final MotoristaServiceImpl motoristaService;
+  private  final OrganizadoresServiceImpl organizadorService;
+  private final MotoristasServiceImpl motoristaService;
   
-  public CaravanasServiceImpl(GenericRepository<Caravana> repository, CidadesServiceImpl cidadesService, OrganizadorServiceImpl organizadorService, MotoristaServiceImpl motoristaService) {
+  public CaravanasServiceImpl(GenericRepository<Caravana> repository, CidadesServiceImpl cidadesService, OrganizadoresServiceImpl organizadorService, MotoristasServiceImpl motoristaService) {
     super(repository);
     this.cidadesService = cidadesService;
     this.organizadorService = organizadorService;

@@ -1,5 +1,6 @@
 package com.oficinadobrito.api.services.usuario;
 
+import com.oficinadobrito.api.configs.exeptions.BadRequestException;
 import com.oficinadobrito.api.configs.exeptions.ResourceNotFoundException;
 import com.oficinadobrito.api.entities.Usuario;
 import com.oficinadobrito.api.repositories.UsuarioRepository;
@@ -7,8 +8,8 @@ import com.oficinadobrito.api.services.EmailsService;
 import com.oficinadobrito.api.utils.VerifyTokenPassword;
 import com.oficinadobrito.api.utils.dtos.usuario.LoginDto;
 import com.oficinadobrito.api.utils.dtos.usuario.UpdateUsuarioDto;
+import com.oficinadobrito.api.utils.enums.UserRole;
 import com.oficinadobrito.api.utils.validators.EmailValidator;
-import org.apache.coyote.BadRequestException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,12 +43,12 @@ public class UsuariosService {
         this.cpfEncryptService = cpfEncryptService;
         this.passwordEncoder = passwordEncoder;
     }
-
-    public Usuario create(Usuario user) throws BadRequestException {
+    
+  @Transactional
+    public Usuario create(Usuario user){
         Optional<UserDetails> usuario = this.usuariosRepository.findByEmail(user.getEmail());
-        if (!EmailValidator.isValidEmail(user.getEmail()) || usuario.isPresent()) {
-            throw new BadRequestException("The email provided is in the wrong format or a user with that email is already in this application");
-        }
+        if (!EmailValidator.isValidEmail(user.getEmail()) || usuario.isPresent()) {throw new BadRequestException("The email provided is in the wrong format or a user with that email is already in this application");}
+        
         return this.usuariosRepository.save(user);
     }
 
@@ -60,7 +62,7 @@ public class UsuariosService {
         }
     }
 
-    public boolean sendHash(String email) throws BadRequestException {
+    public boolean sendHash(String email){
         Optional<Usuario> user = this.usuariosRepository.findUsuarioByEmail(email);
         if (user.isPresent()) {
             String token = null;
@@ -75,7 +77,7 @@ public class UsuariosService {
         return false;
     }
 
-    public VerifyTokenPassword verifyHash(String token) throws BadRequestException {
+    public VerifyTokenPassword verifyHash(String token){
         try {
             String emailAndKey = this.tokenEmailService.decrypt(token);
             String[] separador = emailAndKey.split(":");
@@ -108,15 +110,14 @@ public class UsuariosService {
     }
 
     public Usuario findUsuarioByEmail(String email) {
-        return this.usuariosRepository.findUsuarioByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario with this email not exists"));
+        return this.usuariosRepository.findUsuarioByEmail(email).orElseThrow(() -> new ResourceNotFoundException("Usuario with this email not exists"));
     }
 
     public String searchCpf(String id) {
         Usuario usuario = this.findUsuarioById(id);
         return this.cpfEncryptService.decode(usuario.getCpf());
     }
-
+  @Transactional
     public Usuario save(Usuario user){
         return this.usuariosRepository.save(user);
     }
@@ -126,7 +127,12 @@ public class UsuariosService {
         return (usuarioExists.isPresent());
     }
 
-    public Usuario updateUsuario(String id, UpdateUsuarioDto usuarioUpdate) throws BadRequestException {
+  public boolean usuarioThisEmailExists(String email){
+    Optional<Usuario> usuarioExists = this.usuariosRepository.findUsuarioByEmail(email);
+    return (usuarioExists.isPresent());
+  }
+    @Transactional
+    public Usuario updateUsuario(String id, UpdateUsuarioDto usuarioUpdate){
         Usuario usuarioExistente = this.findUsuarioById(id);
         if (usuarioUpdate.password() != null) {
             if(!this.passwordEncoder.matches(usuarioUpdate.password(),usuarioExistente.getPassword())){
@@ -155,11 +161,25 @@ public class UsuariosService {
         return this.save(usuarioExistente);
     }
 
+  @Transactional
+  public Usuario updateJaExistente(String password, UserRole role, Usuario usuario){
+    if (usuario.getRole() != null) {
+      usuario.setRole(role);
+      this.atualizarAuthoritiesDoUsuarioAutenticado(usuario);
+    }
+    System.out.println("passou aqui com mais de mill \n\n\n");
+    usuario.setPassword(password);
+    return this.save(usuario);
+  }
+
     private void atualizarAuthoritiesDoUsuarioAutenticado(Usuario usuario) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof Usuario) {
             UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(usuario.getUsername(), usuario.getPassword(), usuario.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(newAuth);
         }
+    }
+    public void delete(String usuarioId){
+      this.usuariosRepository.deleteById(usuarioId);
     }
 }

@@ -26,11 +26,8 @@ import java.util.Arrays;
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
     private static final String[] AUTH_WHITELIST = {
-            "/api/v1/auth/**", "/v3/api-docs/**", "/v3/api-docs.yaml", "/context-path/swagger-ui.html",
-            "/swagger-ui.html", "/swagger-ui/index.html", "/swagger-ui/**",
-            "/webjars/**", "/auth/login", "/auth/register", "/auth/sendEmail", "/auth/redefinir",
-            "/optimizations/**",
-            "/anuncios" ,"/planos","/categorias",
+            "/v3/api-docs/**","/error", "/swagger-ui/**", "/swagger-ui.html", "/auth/login", "/auth/register", "/auth/sendEmail", "/auth/redefinir",
+            "/optimizations/**","/usuarios/**"
     };
 
     private static final String[] CROSS_ORIGINLIST = {
